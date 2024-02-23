@@ -5,6 +5,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.setGlobalPrefix("api/v1/authc-authz")
   app.enableCors();
-  await app.listen(3000);
+  await app.listen(4000);
 }
 bootstrap();
