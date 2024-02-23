@@ -4,6 +4,7 @@ import { AppService } from './app.service'; // Importación del servicio de la a
 import { DatabaseModule } from './database/database.module'; // Importación del módulo de la base de datos
 import { ConfigModule } from '@nestjs/config'; // Importación del módulo de configuración
 import { environments } from './common/environments'; // Importación de las configuraciones de entorno
+import { UsersModule } from './users/users.module';
 import config from './config'; // Importación de la configuración global
 import * as Joi from 'joi'; // Importación de la biblioteca Joi para la validación de esquemas
 
@@ -23,6 +24,7 @@ import * as Joi from 'joi'; // Importación de la biblioteca Joi para la validac
       }),
     }),
     DatabaseModule, // Importación del módulo de la base de datos
+    UsersModule, 
   ],
   controllers: [AppController], // Controladores utilizados en el módulo
   providers: [AppService], // Servicios proporcionados por el módulo
