@@ -24,7 +24,7 @@ export const UserSchema = SchemaFactory.createForClass(User);
 
 // Definición de método toJSON para el esquema de usuario
 UserSchema.methods.toJSON = function () {
-    const {__V, password, ...record} = this.toObject(); // Elimina __v y password del objeto y crea un nuevo objeto record
+    const {__v, password, ...record} = this.toObject(); // Elimina __v y password del objeto y crea un nuevo objeto record
     return record; // Retorna el objeto sin __v y password
 }
 
