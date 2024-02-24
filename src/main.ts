@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core'; // Importación del módulo NestFactory para crear la aplicación Nest
 import { AppModule } from './app.module'; // Importación del módulo principal de la aplicación
 import { ValidationPipe } from '@nestjs/common'; // Importación del ValidatioPipe de NestJS para la validación de datos
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule); // Creación de la aplicación NestJS
@@ -15,6 +16,14 @@ async function bootstrap() {
       }
     })
   );
+
+  const config = new DocumentBuilder() // Configuración del generador de documentos Swagger
+    .setTitle("API") // Título de la documentación
+    .setDescription("Autenticación y Autorización con NestJS y MongoDb") // Descripción de la API
+    .setVersion("1.0") // Versión de la API
+    .build(); // Construcción de la configuración del documento Swagger
+  const document = SwaggerModule.createDocument(app, config); // Creación del documento Swagger
+  SwaggerModule.setup("docs", app, document); // Configuración de Swagger en la ruta "/docs"
 
   app.enableCors(); // Habilitación de CORS (Cross-Origin Resource Sharing) para permitir solicitudes desde cualquier origen
   await app.listen(4000); // Inicio del servidor en el puerto 4000
