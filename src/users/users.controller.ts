@@ -23,6 +23,7 @@ import {
 import { FilterUserDto } from './dto/filter-user.dto';
 import { User } from './entities/user.entity';
 import { object } from 'joi';
+import { MongoIdPipe } from 'src/common/pipes/mongo-id.pipe';
 
 @ApiTags('Users')
 @Controller('users')
@@ -140,7 +141,7 @@ export class UsersController {
     type: 'string',
   })
   @Get(':id')
-  async findOne(@Param('id') id: string): Promise<User> {
+  async findOne(@Param('id', MongoIdPipe) id: string): Promise<User> {
     return await this.usersService.findOne(id);
   }
 
@@ -170,7 +171,7 @@ export class UsersController {
     description: 'Invalid data provided',
   })
   @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+  async update(@Param('id', MongoIdPipe) id: string, @Body() updateUserDto: UpdateUserDto) {
     return await this.usersService.update(id, updateUserDto);
   }
 
@@ -187,7 +188,7 @@ export class UsersController {
   
   /** Eliminación lógica de una colección */
   @Patch('delete/:id')
-  async delete(@Param('id') id: string) {
+  async delete(@Param('id', MongoIdPipe) id: string) {
     return await this.usersService.delete(id);
   }
 
@@ -203,7 +204,7 @@ export class UsersController {
   @ApiParam({name: 'id', description: 'ID of the user', type: 'string'})
   /** Eliminación física de una colección */
   @Delete('remove/:id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id', MongoIdPipe) id: string) {
     return await this.usersService.remove(id);
   }
   
