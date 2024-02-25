@@ -17,6 +17,9 @@ export class User extends Document { // Clase User que extiende la interfaz Docu
 
     @Prop({trim: true}) // Decorador @Prop con opciones para lastName
     lastName: string; // Propiedad para almacenar el apellido
+
+    @Prop({default: false})
+    isDeleted: boolean;
 }
 
 // Creación del esquema de usuario utilizando la fábrica de esquemas SchemaFactory
