@@ -9,15 +9,18 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from './entities/user.entity';
 import { FilterQuery, Model } from 'mongoose';
 import { FilterUserDto } from './dto/filter-user.dto';
+import { HashingService } from 'src/providers/hashing/hashing.service';
 
 @Injectable()
 export class UsersService {
   constructor(
-    @InjectModel(User.name) private readonly userModel: Model<User>,
+    @InjectModel(User.name) private readonly userModel: Model<User>, private readonly hashingService: HashingService
   ) {}
 
   async create(createUserDto: CreateUserDto) {
     try {
+      // Hasheamos la contraseña
+      createUserDto.password = await this.hashingService.hash(createUserDto.password.trim())
       const newRecord = new this.userModel(createUserDto);
       return await newRecord.save();
     } catch (error) {
@@ -112,6 +115,8 @@ export class UsersService {
     try {
       const record = await this.findOne(id);
 
+    // Hasheamos la contraseña
+    updateUserDto.password = await this.hashingService.hash(updateUserDto.password.trim())  
     return await this.userModel.findByIdAndUpdate(record.id, {$set: updateUserDto}, {new:true, runValidators: true}).exec()
     } catch (error) {
       throw new BadRequestException(error.message)
