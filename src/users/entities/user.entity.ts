@@ -9,7 +9,7 @@ export class User extends Document { // Clase User que extiende la interfaz Docu
     @Prop({unique: true, index: true, trim: true}) // Decorador @Prop con opciones para email
     email: string; // Propiedad para almacenar el email
 
-    @Prop({trim: true}) // Decorador @Prop con opciones para password
+    @Prop({trim: true, select: true}) // Decorador @Prop con opciones para password
     password: string; // Propiedad para almacenar el password
 
     @Prop({trim: true}) // Decorador @Prop con opciones para firstName
@@ -26,10 +26,10 @@ export class User extends Document { // Clase User que extiende la interfaz Docu
 export const UserSchema = SchemaFactory.createForClass(User);
 
 // Definición de método toJSON para el esquema de usuario
-UserSchema.methods.toJSON = function () {
+/* UserSchema.methods.toJSON = function () {
     const {__v, password, ...record} = this.toObject(); // Elimina __v y password del objeto y crea un nuevo objeto record
     return record; // Retorna el objeto sin __v y password
-}
+} */
 
 // Middleware post-save para el esquema de usuario
 /* UserSchema.post("save", function (error, doc, next){
