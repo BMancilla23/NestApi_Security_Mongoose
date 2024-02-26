@@ -5,9 +5,10 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { User, UserSchema } from './entities/user.entity';
 import { HashingService } from 'src/providers/hashing/hashing.service';
 import { BcryptService } from 'src/providers/hashing/bcrypt.service';
+import { ErrorsModule } from 'src/errors/errors.module';
 
 @Module({
-  imports: [MongooseModule.forFeature([{name: User.name, schema: UserSchema}])],
+  imports: [MongooseModule.forFeature([{name: User.name, schema: UserSchema}]), ErrorsModule],
   controllers: [UsersController],
   providers: [
     {provide: HashingService, // El token del proveedor es la clase abstracta
