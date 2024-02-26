@@ -32,10 +32,10 @@ UserSchema.methods.toJSON = function () {
 }
 
 // Middleware post-save para el esquema de usuario
-UserSchema.post("save", function (error, doc, next){
+/* UserSchema.post("save", function (error, doc, next){
     if (error.name === "MongoServerError" && error.code === 11000) {
         next(new Error(`El ${Object.keys(error.KeyValue)} ya existe`)) // Si hay un error de duplicado, pasa un nuevo error al siguiente middleware
     } else {
         next(); // Si no hay errores, continúa
     }
-})
+}) */
